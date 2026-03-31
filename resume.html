@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celine Oliveira Barros Resume</title>
+<style>
+  :root {
+    --sage: #7A9E7E;
+    --sage-deep: #5C8260;
+    --sage-light: #C0D8C3;
+    --sage-pale: #E8F0E9;
+    --lavender: #9B8EC4;
+    --lavender-deep: #7B6FA8;
+    --lavender-light: #C7BFE0;
+    --lavender-pale: #EDE9F6;
+    --cream: #FAFAF7;
+    --ink: #2C2C2C;
+    --ink-light: #4A4A4A;
+    --ink-muted: #777777;
+    --border: #E2DED6;
+    --font-display: Georgia, 'Times New Roman', serif;
+    --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: #E8E4DE;
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 5rem;
+    min-height: 100vh;
+  }
+
+  /* === TOOLBAR === */
+  .toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(250, 250, 247, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.7rem 2rem;
+  }
+  .toolbar-label {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+  .toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--ink-light);
+    transition: all 0.25s;
+  }
+  .toolbar-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .toolbar-btn.primary {
+    background: var(--sage);
+    color: white;
+    border-color: var(--sage);
+  }
+  .toolbar-btn.primary:hover {
+    background: var(--sage-deep);
+  }
+
+  /* === RESUME PAGE === */
+  .resume-page {
+    width: 8.5in;
+    min-height: 11in;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06);
+    margin-top: 4rem;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative top bar */
+  .resume-page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--sage) 0%, var(--lavender) 100%);
+  }
+
+  .resume-content {
+    padding: 2.2rem 2.4rem 2rem;
+  }
+
+  /* === HEADER === */
+  .resume-header {
+    text-align: center;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid var(--sage-pale);
+    position: relative;
+  }
+  .resume-header::after {
+    content: '✿';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 0 0.6rem;
+    color: var(--sage-light);
+    font-size: 0.9rem;
+  }
+  .resume-name {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+  .resume-title-line {
+    font-size: 0.88rem;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .resume-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+  }
+  .resume-contact a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .resume-contact a:hover { color: var(--lavender-deep); }
+  .contact-sep { color: var(--sage-light); }
+
+  /* === TWO COLUMN LAYOUT === */
+  .resume-body {
+    display: grid;
+    grid-template-columns: 1fr 0.42fr;
+    gap: 1.6rem;
+  }
+
+  /* === SECTION STYLES === */
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sage-deep);
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1.5px solid var(--sage-light);
+    position: relative;
+  }
+  .section-heading.lavender {
+    color: var(--lavender-deep);
+    border-bottom-color: var(--lavender-light);
+  }
+
+  .resume-section { margin-bottom: 1.2rem; }
+
+  /* === ENTRY (Experience/Education) === */
+  .entry { margin-bottom: 0.9rem; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .entry-role {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .entry-date {
+    font-size: 0.73rem;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    font-style: italic;
+  }
+  .entry-org {
+    font-size: 0.8rem;
+    color: var(--sage-deep);
+    margin-bottom: 0.2rem;
+    font-style: italic;
+  }
+  .entry-desc {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    line-height: 1.55;
+    margin-top: 0.15rem;
+  }
+  .entry-desc ul {
+    padding-left: 1.1rem;
+    margin-top: 0.15rem;
+  }
+  .entry-desc li {
+    margin-bottom: 0.1rem;
+    font-size: 0.79rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+  .entry-desc li::marker {
+    color: var(--sage-light);
+  }
+
+  /* === SIDEBAR === */
+  .sidebar .resume-section { margin-bottom: 1.1rem; }
+
+  .skill-category {
+    margin-bottom: 0.6rem;
+  }
+  .skill-category:last-child { margin-bottom: 0; }
+  .skill-cat-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.2rem;
+  }
+  .skill-cat-items {
+    font-size: 0.78rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    font-size: 0.79rem;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+  .sidebar-list li {
+    position: relative;
+    padding-left: 0.9rem;
+    margin-bottom: 0.15rem;
+  }
+  .sidebar-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--sage-light);
+  }
+  .sidebar-list li:nth-child(even)::before {
+    background: var(--lavender-light);
+  }
+
+  .lang-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.79rem;
+    color: var(--ink-light);
+    margin-bottom: 0.15rem;
+  }
+  .lang-level {
+    color: var(--ink-muted);
+    font-style: italic;
+    font-size: 0.73rem;
+  }
+
+  .awards-item {
+    margin-bottom: 0.45rem;
+  }
+  .awards-item:last-child { margin-bottom: 0; }
+  .awards-item .award-name {
+    font-size: 0.79rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .awards-item .award-detail {
+    font-size: 0.73rem;
+    color: var(--ink-muted);
+  }
+
+  /* === PRINT === */
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+    }
+    .toolbar { display: none; }
+    .resume-page {
+      box-shadow: none;
+      border-radius: 0;
+      margin-top: 0;
+      width: 100%;
+    }
+    .resume-page::before {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .section-heading {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .sidebar-list li::before {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .resume-page {
+      width: 100%;
+      min-height: auto;
+      border-radius: 0;
+    }
+    .resume-body {
+      grid-template-columns: 1fr;
+    }
+    .resume-content {
+      padding: 1.8rem 1.5rem 1.5rem;
+    }
+    body { padding: 0 0 5rem; }
+    .toolbar { padding: 0.6rem 1rem; }
+    .toolbar-label { display: none; }
+    .resume-page { margin-top: 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <span class="toolbar-label">Celine's Resume</span>
+  <button class="toolbar-btn primary" onclick="window.print()">&#128438; Print / Save PDF</button>
+</div>
+
+<!-- RESUME -->
+<div class="resume-page">
+  <div class="resume-content">
+
+    <!-- HEADER -->
+    <header class="resume-header">
+      <h1 class="resume-name">Celine Oliveira Barros</h1>
+      <p class="resume-title-line">Psychology Student &amp; Aspiring Researcher</p>
+      <div class="resume-contact">
+        <span>Nanaimo, BC, Canada</span>
+        <span class="contact-sep">|</span>
+        <a href="mailto:celine.barros22@gmail.com">celine.barros22@gmail.com</a>
+        <span class="contact-sep">|</span>
+        <a href="https://instagram.com/celine.urfav" target="_blank" rel="noopener">@celine.urfav</a>
+      </div>
+    </header>
+
+    <!-- BODY -->
+    <div class="resume-body">
+
+      <!-- LEFT COLUMN -->
+      <div class="main-col">
+
+        <!-- PROFILE -->
+        <div class="resume-section">
+          <h2 class="section-heading">Profile</h2>
+          <p class="entry-desc">
+            First-year Psychology student at Vancouver Island University with a passion for understanding human behavior and child development. Experienced in community engagement through art education volunteering, student leadership, and academic competitions. Seeking research opportunities to explore the intersection of psychology, creativity, and early development.
+          </p>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="resume-section">
+          <h2 class="section-heading">Education</h2>
+          <div class="entry">
+            <div class="entry-header">
+              <span class="entry-role">Bachelor of Arts in Psychology</span>
+              <span class="entry-date">2026 &ndash; Present</span>
+            </div>
+            <p class="entry-org">Vancouver Island University, Nanaimo, BC</p>
+            <div class="entry-desc">
+              <ul>
+                <li>Coursework in research methods, psychological foundations, academic writing, and critical thinking</li>
+                <li>Pursuing independent research on art and political psychology</li>
+              </ul>
+            </div>
+          </div>
+          <div class="entry">
+            <div class="entry-header">
+              <span class="entry-role">High School Diploma</span>
+              <span class="entry-date">Graduated 2025</span>
+            </div>
+            <p class="entry-org">Frances Kelsey Secondary School, Mill Bay, BC</p>
+            <div class="entry-desc">
+              <ul>
+                <li>Communications Chair, Student Council (Grad Year)</li>
+                <li>Multiple academic olympiad participant</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="resume-section">
+          <h2 class="section-heading">Experience &amp; Leadership</h2>
+          <div class="entry">
+            <div class="entry-header">
+              <span class="entry-role">Communications Chair, Student Council</span>
+              <span class="entry-date">Grad Year</span>
+            </div>
+            <p class="entry-org">Frances Kelsey Secondary School</p>
+            <div class="entry-desc">
+              <ul>
+                <li>Managed social media accounts and maintained shared calendar for the school community</li>
+                <li>Organized meetings, coordinated sign changes, and planned events with student council</li>
+                <li>Served as primary liaison keeping students, staff, and families informed and connected</li>
+              </ul>
+            </div>
+          </div>
+          <div class="entry">
+            <div class="entry-header">
+              <span class="entry-role">Art Volunteer Teacher</span>
+              <span class="entry-date">2026</span>
+            </div>
+            <p class="entry-org">George Bonner Elementary, Mill Bay, BC</p>
+            <div class="entry-desc">
+              <ul>
+                <li>Taught painting and drawing to students in grades 3&ndash;6 every Friday through a Frances Kelsey initiative</li>
+                <li>Developed age-appropriate art activities that encouraged creative expression and confidence</li>
+                <li>Gained hands-on experience in child development and communication with young learners</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESEARCH -->
+        <div class="resume-section">
+          <h2 class="section-heading lavender">Research &amp; Projects</h2>
+          <div class="entry">
+            <div class="entry-header">
+              <span class="entry-role">Capstone Research: Why Art is Political</span>
+              <span class="entry-date">2026</span>
+            </div>
+            <div class="entry-desc">
+              <ul>
+                <li>Investigated the entanglement of art and politics through a qualitative lens, drawing on Brazil's 1922 Week of Modern Art</li>
+                <li>Analyzed work of Aristotle, Hannah Arendt, Tolstoy, and Morris Weitz to argue that defining art involves political judgment</li>
+              </ul>
+            </div>
+          </div>
+          <div class="entry">
+            <div class="entry-header">
+              <span class="entry-role">Books &amp; Early Childhood Development</span>
+              <span class="entry-date">Ongoing</span>
+            </div>
+            <div class="entry-desc">
+              <ul>
+                <li>Exploring how literature and reading shape cognitive growth, empathy, and emotional vocabulary in early childhood</li>
+                <li>Researching storytelling as a therapeutic tool and the long-term psychological impact of early access to books</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN (SIDEBAR) -->
+      <div class="sidebar">
+
+        <!-- SKILLS -->
+        <div class="resume-section">
+          <h2 class="section-heading">Skills</h2>
+          <div class="skill-category">
+            <p class="skill-cat-label">Research</p>
+            <p class="skill-cat-items">Qualitative analysis, literature review, academic writing, critical thinking</p>
+          </div>
+          <div class="skill-category">
+            <p class="skill-cat-label">Communication</p>
+            <p class="skill-cat-items">Social media management, event planning, public engagement, active listening</p>
+          </div>
+          <div class="skill-category">
+            <p class="skill-cat-label">Creative</p>
+            <p class="skill-cat-items">Painting, drawing, art education, visual storytelling</p>
+          </div>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div class="resume-section">
+          <h2 class="section-heading lavender">Languages</h2>
+          <div class="lang-item">
+            <span>Portuguese</span>
+            <span class="lang-level">Native</span>
+          </div>
+          <div class="lang-item">
+            <span>English</span>
+            <span class="lang-level">Fluent</span>
+          </div>
+        </div>
+
+        <!-- INTERESTS -->
+        <div class="resume-section">
+          <h2 class="section-heading">Interests</h2>
+          <ul class="sidebar-list">
+            <li>Child development &amp; psychology</li>
+            <li>TCR (Terapia Comportamental Racional)</li>
+            <li>Art &amp; political psychology</li>
+            <li>Early childhood literacy</li>
+            <li>Books &amp; creative expression</li>
+            <li>Language learning</li>
+          </ul>
+        </div>
+
+        <!-- AWARDS -->
+        <div class="resume-section">
+          <h2 class="section-heading lavender">Awards</h2>
+          <div class="awards-item">
+            <p class="award-name">Silver Medal &mdash; Canguru</p>
+            <p class="award-detail">Mathematics Olympiad</p>
+          </div>
+          <div class="awards-item">
+            <p class="award-name">OBB Participant</p>
+            <p class="award-detail">Biology Olympiad</p>
+          </div>
+          <div class="awards-item">
+            <p class="award-name">ONHB Participant</p>
+            <p class="award-detail">History Olympiad</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
