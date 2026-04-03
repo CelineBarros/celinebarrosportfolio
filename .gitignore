@@ -41,3 +41,4 @@ images/drafts/
 Thumbs.db
 .env
 .env.local
+.vsls.json
