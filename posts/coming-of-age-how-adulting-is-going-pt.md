@@ -17,7 +17,7 @@ Olhando para trás agora, realmente eu deveria ter seguido o conselho deles. Dez
 
 Essa era a minha maior empolgação com quatorze anos (vamos chamar essa versão de mim mesma de Celine Jovem). Na minha cabeça — alimentada pela Disney Channel e filmes dos anos 2000 — eu teria as festas mais incríveis, mil amigos e uma vida social insana. Celine Jovem achava que eu iria acordar todo fim de semana na casa de uma amiga depois de uma noite fora e passaria o dia todo apenas pintando unhas e andando pelo campus.
 
-A Celine de dezoito anos (a Celine Presente) está bem longe dessa realidade. Embora eu aprecie um bom encontro com os amigos, não são as “festas malucas em casa” que imaginei.
+A Celine de dezoito anos (a Celine do Presente) está bem longe dessa realidade. Embora eu aprecie um bom encontro com os amigos, não são as “festas malucas em casa” que imaginei.
 
 Mas eu diria que minha vida social atual é muito mais saudável e agradável do que a que imaginava; eu cultivei amigos em quem realmente confio, pessoas que fazem parte do meu sistema de apoio e que iluminam meu dia. E para mim, esse é o verdadeiro objetivo da amizade: estar presente um para o outro quando tudo está mudando; ligar à noite quando você está meio triste, cantar músicas da Disney (especialmente de *Descendentes*) no volume mais alto possível e simplesmente estar lá, mesmo que não o tempo todo.
 
@@ -33,8 +33,8 @@ Você pode estar pensando que isso soa como um plano sólido. O problema é: eu 
 
 Celine Jovem tinha o futuro todo mapeado à frente dela, cada fase estrategizada como um videogame. Na cabeça dela, eu saberia exatamente quem seria, o que iria querer e para onde iria assim que completasse dezoito anos. Sem curvas, sem obstáculos, só uma linha reta simples.
 
-Celine Presente percebe que não existe mapa; não existe essa coisa de plano perfeito sem obstáculos. E sendo sincera? Estou bem com isso; eu sei que soa louco, mas aprendi a aceitar o caos e a imprevisibilidade da vida como um presente.
+Celine do Presente percebe que não existe mapa; não existe essa coisa de plano perfeito sem obstáculos. E sendo sincera? Estou bem com isso; eu sei que soa louco, mas aprendi a aceitar o caos e a imprevisibilidade da vida como uma dádiva.
 
 Se este post deixou algo óbvio, é que nada do que eu esperava se concretizou — de verdade, “codificado pelo Soy Luna” (precisamos romantizar a vida um pouco, né?) — e minha vida ficou melhor do que eu poderia planejar. Os amigos que eu não esperava. A carreira que eu não antecipei. O processo bagunçado do “adulting.”
 
-Eu não sei o que o futuro reserva, e não tenho ideia do que a próxima Celine Presente vai pensar das minhas decisões e filosofias. Mas aprendi a viver esse caos o melhor que posso. Talvez esse seja o verdadeiro “adulting” — não ter todas as respostas nem ideia do que fazer, mas ainda tentar, persistir e enxergar o lado bonito da surpresa. Em conclusão, um bom filme da Disney Channel é aquele com uma reviravolta forte.
+Eu não sei o que o futuro reserva, e não tenho ideia do que a próxima Celine do Presente vai pensar das minhas decisões e filosofias. Mas aprendi a viver esse caos o melhor que posso. Talvez esse seja o verdadeiro “adulting” — não ter todas as respostas nem ideia do que fazer, mas ainda tentar, persistir e enxergar o lado bonito da surpresa. Em conclusão, um bom filme da Disney Channel é aquele com uma reviravolta forte.
