@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 (function(){try{var k='theme',s=localStorage.getItem(k);if(s==='light'||s==='dark'){document.documentElement.setAttribute('data-theme',s);}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();
+(function(){try{var l=localStorage.getItem('lang');if(l==='pt'||l==='en'){document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l;}}catch(e){}})();
 </script>
 <title>Celine Oliveira Barros - Psychology Student</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%234a7c59'>✿</text></svg>">
@@ -441,6 +442,78 @@
     color: var(--sage-light);
   }
 
+  /* ===== LANGUAGE TOGGLE ===== */
+  [data-en] { display: inline; }
+  [data-pt] { display: none; }
+  html[data-lang="pt"] [data-en] { display: none; }
+  html[data-lang="pt"] [data-pt] { display: inline; }
+
+  /* Block-level lang switch */
+  [data-en-block] { display: block; }
+  [data-pt-block] { display: none; }
+  html[data-lang="pt"] [data-en-block] { display: none; }
+  html[data-lang="pt"] [data-pt-block] { display: block; }
+
+  /* Flex-level lang switch */
+  [data-en-flex] { display: flex; }
+  [data-pt-flex] { display: none; }
+  html[data-lang="pt"] [data-en-flex] { display: none; }
+  html[data-lang="pt"] [data-pt-flex] { display: flex; }
+
+  /* Lang toggle button */
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    transition: color 0.3s;
+    flex-shrink: 0;
+    line-height: 1;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    appearance: none;
+    gap: 0.35rem;
+  }
+  .lang-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--lavender);
+    transition: width 0.3s;
+  }
+  .lang-toggle:hover { color: var(--lavender-deep); }
+  .lang-toggle:hover::after { width: 100%; }
+  .lang-toggle:focus-visible {
+    outline: 2px solid var(--lavender);
+    outline-offset: 3px;
+  }
+  .lang-icon {
+    display: inline-flex;
+    width: 1.15rem;
+    height: 1.15rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lang-label-en, .lang-label-pt { pointer-events: none; }
+  .lang-label-pt { display: none; }
+  html[data-lang="pt"] .lang-label-en { display: none; }
+  html[data-lang="pt"] .lang-label-pt { display: inline; }
+
   /* === RESPONSIVE === */
   @media (max-width: 768px) {
     nav .nav-links { display: none; }
@@ -467,7 +540,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#hero" class="logo">hey, it's me</a>
+    <a href="#hero" class="logo"><span data-en>hey, it's me</span><span data-pt>oi, sou eu</span></a>
     <div class="nav-actions">
       <button type="button" class="theme-toggle theme-toggle--mobile" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
         <span class="theme-toggle-label theme-toggle-label--dark" aria-hidden="true">
@@ -478,6 +551,16 @@
           <svg class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
           Light
         </span>
+      </button>
+      <button type="button" class="lang-toggle" aria-label="Switch language">
+        <span class="lang-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2.05 12h19.9M12 2.05v19.9M6.6 6.6l10.8 10.8M17.4 6.6L6.6 17.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="lang-label-en">PT-BR</span>
+        <span class="lang-label-pt">en</span>
       </button>
       <button class="mobile-toggle" onclick="document.getElementById('navbar').classList.toggle('open')">
         <span></span><span></span><span></span>
@@ -495,14 +578,14 @@
             </span>
           </button>
         </li>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#journey">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#art">My Art</a></li>
-        <li><a href="#research">Research</a></li>
-        <li><a href="#goals">Goals</a></li>
+        <li><a href="#about"><span data-en>About Me</span><span data-pt>Sobre Mim</span></a></li>
+        <li><a href="#journey"><span data-en>Experience</span><span data-pt>Experiência</span></a></li>
+        <li><a href="#projects"><span data-en>Projects</span><span data-pt>Projetos</span></a></li>
+        <li><a href="#art"><span data-en>My Art</span><span data-pt>Minha Arte</span></a></li>
+        <li><a href="#research"><span data-en>Research</span><span data-pt>Pesquisa</span></a></li>
+        <li><a href="#goals"><span data-en>Goals</span><span data-pt>Metas</span></a></li>
         <li><a href="blog.html">Blog</a></li>
-        <li><a href="#connect">Connect</a></li>
+        <li><a href="#connect"><span data-en>Connect</span><span data-pt>Contato</span></a></li>
       </ul>
     </div>
   </div>
@@ -514,13 +597,17 @@
     <div class="hero-photo">
       <img src="images/profile.jpg" alt="Celine Oliveira Barros">
     </div>
-    <span class="hero-badge">BA Psychology student • Open to research opportunities</span>
-    <h1>Hey, I'm <em>Celine Oliveira Barros</em></h1>
+    <span class="hero-badge">
+      <span data-en>BA Psychology student • Open to research opportunities</span>
+      <span data-pt>Estudante de Psicologia • Aberta a oportunidades de pesquisa</span>
+    </span>
+    <h1><span data-en>Hey, I'm </span><span data-pt>Oi, eu sou </span><em>Celine Oliveira Barros</em></h1>
     <p class="hero-subtitle">
-      Brazilian psychology student in Canada, fascinated by human behavior, art, and the mind. Currently exploring the intersection of psychology, creativity, and how our surroundings shape who we become.
+      <span data-en>Brazilian psychology student in Canada, fascinated by human behavior, art, and the mind. Currently exploring the intersection of psychology, creativity, and how our surroundings shape who we become.</span>
+      <span data-pt>Estudante brasileira de psicologia no Canadá, fascinada por comportamento humano, arte e a mente. Explorando a interseção entre psicologia, criatividade e como nosso ambiente molda quem nos tornamos.</span>
     </p>
     <a href="#about" class="hero-scroll">
-      Come get to know me! <span class="arrow">&#10549;</span>
+      <span data-en>Come get to know me!</span><span data-pt>Vem me conhecer!</span> <span class="arrow">&#10549;</span>
     </a>
   </div>
 </section>
@@ -528,37 +615,40 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="section-inner">
-    <p class="section-label">01 &mdash; nice to meet you!</p>
-    <h2 class="section-title">Who I Am</h2>
-    <p class="section-subtitle">the person behind the curiosity</p>
+    <p class="section-label"><span data-en>01 &mdash; nice to meet you!</span><span data-pt>01 &mdash; prazer em conhecer!</span></p>
+    <h2 class="section-title"><span data-en>Who I Am</span><span data-pt>Quem Sou Eu</span></h2>
+    <p class="section-subtitle"><span data-en>the person behind the curiosity</span><span data-pt>a pessoa por trás da curiosidade</span></p>
 
     <div class="about-grid">
       <div class="about-text">
-        <p>Oi! I'm Celine &mdash; a 19-year-old from Brazil, currently studying in Nanaimo. I'm in my first year of a BA in Psychology at Vancouver Island University, and honestly? I've been obsessed with understanding people for as long as I can remember. I was also Communications Chair at Frances Kelsey Secondary School during my grad year!</p>
-        <p>My love for psychology started young, and having been in therapy since I was 11, I've experienced firsthand how transformative understanding the mind can be. I'm especially drawn to TCR (Terapia de Contingências por Reforçamento) &mdash; the Brazilian approach to behavior analysis &mdash; and how our environment shapes who we become.</p>
-        <p>When I'm not buried in psychology books, you'll find me making art, reading, or thinking about the fascinating ways creativity and the human psyche intertwine. I also have a huge soft spot for kids and dogs!</p>
+        <p data-en-block>Hi! I'm Celine &mdash; a 19-year-old from Brazil, currently studying in Nanaimo. I'm in my first year of a BA in Psychology at Vancouver Island University, and honestly? I've been obsessed with understanding people for as long as I can remember. I was also Communications Chair at Frances Kelsey Secondary School during my grad year!</p>
+        <p data-pt-block>Oi! Eu sou a Celine &mdash; tenho 19 anos, sou do Brasil e atualmente estudo em Nanaimo. Estou no primeiro ano do bacharelado em Psicologia na Vancouver Island University, e sinceramente? Sou obcecada por entender pessoas desde que me lembro. Também fui Coordenadora de Comunicação na Frances Kelsey Secondary School no meu último ano!</p>
+        <p data-en-block>My love for psychology started young, and having been in therapy since I was 11, I've experienced firsthand how transformative understanding the mind can be. I'm especially drawn to TCR (Terapia de Contingências por Reforçamento) &mdash; the Brazilian approach to behavior analysis &mdash; and how our environment shapes who we become.</p>
+        <p data-pt-block>Meu amor pela psicologia começou cedo, e fazendo terapia desde os 11 anos, eu vivi na pele como entender a mente pode ser transformador. Sou especialmente interessada em TCR (Terapia de Contingências por Reforçamento) &mdash; a abordagem brasileira à análise do comportamento &mdash; e como nosso ambiente molda quem nos tornamos.</p>
+        <p data-en-block>When I'm not buried in psychology books, you'll find me making art, reading, or thinking about the fascinating ways creativity and the human psyche intertwine. I also have a huge soft spot for kids and dogs!</p>
+        <p data-pt-block>Quando não estou enterrada em livros de psicologia, você me encontra fazendo arte, lendo ou pensando nas maneiras fascinantes como a criatividade e a psique humana se entrelaçam. Também tenho um enorme fraco por crianças e cachorros!</p>
       </div>
       <div class="about-sidebar">
-        <h3>Skills</h3>
+        <h3><span data-en>Skills</span><span data-pt>Habilidades</span></h3>
         <ul class="skill-list">
           <li>TCR (Terapia de Contingências por Reforçamento)</li>
-          <li>Research Methods</li>
-          <li>Academic Writing</li>
-          <li>Child Development</li>
-          <li>Art &amp; Psychology</li>
+          <li><span data-en>Research Methods</span><span data-pt>Métodos de Pesquisa</span></li>
+          <li><span data-en>Academic Writing</span><span data-pt>Escrita Acadêmica</span></li>
+          <li><span data-en>Child Development</span><span data-pt>Desenvolvimento Infantil</span></li>
+          <li><span data-en>Art &amp; Psychology</span><span data-pt>Arte &amp; Psicologia</span></li>
           <li>Web Development</li>
-          <li>Photography</li>
-          <li>Portuguese (Native)</li>
-         <li>English (Fluent)</li>
+          <li><span data-en>Photography</span><span data-pt>Fotografia</span></li>
+          <li><span data-en>Portuguese (Native)</span><span data-pt>Português (Nativo)</span></li>
+         <li><span data-en>English (Fluent)</span><span data-pt>Inglês (Fluente)</span></li>
         </ul>
-       <h3 style="margin-top: 1.5rem;">A little more about me</h3>
+       <h3 style="margin-top: 1.5rem;"><span data-en>A little more about me</span><span data-pt>Um pouco mais sobre mim</span></h3>
       <div class="about-traits">
-          <span class="trait">Bookworm &amp; art lover</span>
-          <span class="trait">8 years in therapy</span>
-          <span class="trait">Learning new languages</span>
-          <span class="trait">Brazilian in Nanaimo</span>
-         <span class="trait">Dog enthusiast</span>
-         <span class="trait">TCR enthusiast</span>
+          <span class="trait"><span data-en>Bookworm &amp; art lover</span><span data-pt>Devoradora de livros &amp; amante de arte</span></span>
+          <span class="trait"><span data-en>8 years in therapy</span><span data-pt>8 anos de terapia</span></span>
+          <span class="trait"><span data-en>Learning new languages</span><span data-pt>Aprendendo novos idiomas</span></span>
+          <span class="trait"><span data-en>Brazilian in Nanaimo</span><span data-pt>Brasileira em Nanaimo</span></span>
+         <span class="trait"><span data-en>Dog enthusiast</span><span data-pt>Apaixonada por cachorros</span></span>
+         <span class="trait"><span data-en>TCR enthusiast</span><span data-pt>Entusiasta de TCR</span></span>
        </div>
       </div>
     </div>
@@ -570,58 +660,78 @@
 <!-- JOURNEY -->
 <section id="journey">
   <div class="section-inner">
-    <p class="section-label">02 &mdash; where I've been</p>
-    <h2 class="section-title">My Journey</h2>
-    <p class="section-subtitle">education, research & volunteering</p>
+    <p class="section-label"><span data-en>02 &mdash; where I've been</span><span data-pt>02 &mdash; por onde passei</span></p>
+    <h2 class="section-title"><span data-en>My Journey</span><span data-pt>Minha Trajetória</span></h2>
+    <p class="section-subtitle"><span data-en>education, research & volunteering</span><span data-pt>educação, pesquisa & voluntariado</span></p>
 
     <div class="timeline">
       <div class="timeline-item">
-        <p class="timeline-date">2026 &ndash; Present <span class="timeline-date-note">&middot; The dream begins!</span></p>
-        <h3>Psychology Student</h3>
+        <p class="timeline-date"><span data-en>2026 &ndash; Present</span><span data-pt>2026 &ndash; Atual</span> <span class="timeline-date-note"><span data-en>&middot; The dream begins!</span><span data-pt>&middot; O sonho começa!</span></span></p>
+        <h3><span data-en>Psychology Student</span><span data-pt>Estudante de Psicologia</span></h3>
         <p class="location"><a href="https://www.viu.ca/programs/arts-science/psychology-bachelor-arts" target="_blank" rel="noopener">@ Vancouver Island University</a></p>
-        <p>First year of my BA in Psychology journey! Learning the foundations of psychological research, human development, and behavior analysis. Every class makes me more excited about where this path will lead.</p>
+        <p data-en-block>First year of my BA in Psychology journey! Learning the foundations of psychological research, human development, and behavior analysis. Every class makes me more excited about where this path will lead.</p>
+        <p data-pt-block>Primeiro ano da minha jornada no bacharelado em Psicologia! Aprendendo os fundamentos da pesquisa psicológica, desenvolvimento humano e análise do comportamento. Cada aula me deixa mais empolgada sobre para onde esse caminho vai me levar.</p>
         <div class="tag-list">
-          <span>Research Methods</span><span>Psychology Foundations</span><span>Academic Writing</span><span>Critical Thinking</span>
+          <span><span data-en>Research Methods</span><span data-pt>Métodos de Pesquisa</span></span>
+          <span><span data-en>Psychology Foundations</span><span data-pt>Fundamentos da Psicologia</span></span>
+          <span><span data-en>Academic Writing</span><span data-pt>Escrita Acadêmica</span></span>
+          <span><span data-en>Critical Thinking</span><span data-pt>Pensamento Crítico</span></span>
         </div>
       </div>
 
       <div class="timeline-item">
-        <p class="timeline-date">2026 &ndash; Present <span class="timeline-date-note">&middot; Where creativity meets the mind</span></p>
-        <h3>Research Project: Art & Politics</h3>
-        <p class="location">@ Independent Research</p>
-        <p>Currently exploring the fascinating entanglement between art and politics through a psychological view. Investigating how artistic expression both reflects and shapes political consciousness &mdash; combining my two loves!</p>
+        <p class="timeline-date"><span data-en>2026 &ndash; Present</span><span data-pt>2026 &ndash; Atual</span> <span class="timeline-date-note"><span data-en>&middot; Where creativity meets the mind</span><span data-pt>&middot; Onde a criatividade encontra a mente</span></span></p>
+        <h3><span data-en>Research Project: Art &amp; Politics</span><span data-pt>Projeto de Pesquisa: Arte &amp; Política</span></h3>
+        <p class="location"><span data-en>@ Independent Research</span><span data-pt>@ Pesquisa Independente</span></p>
+        <p data-en-block>Currently exploring the fascinating entanglement between art and politics through a psychological view. Investigating how artistic expression both reflects and shapes political consciousness &mdash; combining my two loves!</p>
+        <p data-pt-block>Explorando o fascinante entrelaçamento entre arte e política através de uma visão psicológica. Investigando como a expressão artística reflete e molda a consciência política &mdash; combinando meus dois amores!</p>
         <div class="tag-list lavender">
-          <span>Qualitative Research</span><span>Art Analysis</span><span>Political Psychology</span><span>Literature Review</span>
+          <span><span data-en>Qualitative Research</span><span data-pt>Pesquisa Qualitativa</span></span>
+          <span><span data-en>Art Analysis</span><span data-pt>Análise de Arte</span></span>
+          <span><span data-en>Political Psychology</span><span data-pt>Psicologia Política</span></span>
+          <span><span data-en>Literature Review</span><span data-pt>Revisão Bibliográfica</span></span>
         </div>
       </div>
 
       <div class="timeline-item">
-        <p class="timeline-date">2026 <span class="timeline-date-note">&middot; Teaching little artists</span></p>
-        <h3>Art Volunteer Teacher</h3>
+        <p class="timeline-date">2026 <span class="timeline-date-note"><span data-en>&middot; Teaching little artists</span><span data-pt>&middot; Ensinando pequenos artistas</span></span></p>
+        <h3><span data-en>Art Volunteer Teacher</span><span data-pt>Professora Voluntária de Arte</span></h3>
         <p class="location"><a href="https://georgebonner.sd79.bc.ca/" target="_blank" rel="noopener">@ George Bonner Elementary, Mill Bay</a></p>
-        <p>Taught painting and drawing to kids in grades 3&ndash;6 every Friday as part of a high school initiative through Frances Kelsey Secondary School. Watching children express themselves through art deepened my understanding of child development and creative expression.</p>
+        <p data-en-block>Taught painting and drawing to kids in grades 3&ndash;6 every Friday as part of a high school initiative through Frances Kelsey Secondary School. Watching children express themselves through art deepened my understanding of child development and creative expression.</p>
+        <p data-pt-block>Ensinei pintura e desenho para crianças do 3º ao 6º ano toda sexta-feira como parte de uma iniciativa escolar da Frances Kelsey Secondary School. Assistir as crianças se expressarem através da arte aprofundou meu entendimento sobre desenvolvimento infantil e expressão criativa.</p>
         <div class="tag-list">
-          <span>Child Development</span><span>Art Education</span><span>Patience</span><span>Communication</span>
+          <span><span data-en>Child Development</span><span data-pt>Desenvolvimento Infantil</span></span>
+          <span><span data-en>Art Education</span><span data-pt>Educação Artística</span></span>
+          <span><span data-en>Patience</span><span data-pt>Paciência</span></span>
+          <span><span data-en>Communication</span><span data-pt>Comunicação</span></span>
         </div>
       </div>
 
       <div class="timeline-item">
-        <p class="timeline-date">Grad Year <span class="timeline-date-note">&middot; Connecting people!</span></p>
-        <h3>Communications Chair</h3>
+        <p class="timeline-date"><span data-en>Grad Year</span><span data-pt>Último Ano</span> <span class="timeline-date-note"><span data-en>&middot; Connecting people!</span><span data-pt>&middot; Conectando pessoas!</span></span></p>
+        <h3><span data-en>Communications Chair</span><span data-pt>Coordenadora de Comunicação</span></h3>
         <p class="location"><a href="https://fkss.sd79.bc.ca/" target="_blank" rel="noopener">@ Frances Kelsey Secondary School</a></p>
-        <p>Served as Communications Chair for student council at Frances Kelsey Secondary School. Managed social media accounts, organized meetings, maintained a shared calendar, coordinated sign changes, and helped plan events with student council &mdash; keeping the whole school community connected.</p>
+        <p data-en-block>Served as Communications Chair for student council at Frances Kelsey Secondary School. Managed social media accounts, organized meetings, maintained a shared calendar, coordinated sign changes, and helped plan events with student council &mdash; keeping the whole school community connected.</p>
+        <p data-pt-block>Atuei como Coordenadora de Comunicação do grêmio estudantil na Frances Kelsey Secondary School. Gerenciei redes sociais, organizei reuniões, mantive um calendário compartilhado, coordenei cartazes e ajudei a planejar eventos &mdash; mantendo toda a comunidade escolar conectada.</p>
         <div class="tag-list lavender">
-          <span>Social Media</span><span>Leadership</span><span>Event Planning</span><span>Teamwork</span>
+          <span><span data-en>Social Media</span><span data-pt>Redes Sociais</span></span>
+          <span><span data-en>Leadership</span><span data-pt>Liderança</span></span>
+          <span><span data-en>Event Planning</span><span data-pt>Organização de Eventos</span></span>
+          <span><span data-en>Teamwork</span><span data-pt>Trabalho em Equipe</span></span>
         </div>
       </div>
 
       <div class="timeline-item">
-        <p class="timeline-date">High School <span class="timeline-date-note">&middot; Competitive learning!</span></p>
-        <h3>Academic Olympiad Participant</h3>
-        <p class="location">Silver Medal &mdash; Canguru</p>
-        <p>Participated in several academic olympiads including Canguru (Mathematics &mdash; Silver Medal!), OBB (Biology), and ONHB (History). These experiences taught me discipline, critical thinking, and the joy of intellectual challenges.</p>
+        <p class="timeline-date"><span data-en>High School</span><span data-pt>Ensino Médio</span> <span class="timeline-date-note"><span data-en>&middot; Competitive learning!</span><span data-pt>&middot; Aprendizado competitivo!</span></span></p>
+        <h3><span data-en>Academic Olympiad Participant</span><span data-pt>Participante de Olimpíadas Acadêmicas</span></h3>
+        <p class="location"><span data-en>Silver Medal &mdash; Canguru</span><span data-pt>Medalha de Prata &mdash; Canguru</span></p>
+        <p data-en-block>Participated in several academic olympiads including Canguru (Mathematics &mdash; Silver Medal!), OBB (Biology), and ONHB (History). These experiences taught me discipline, critical thinking, and the joy of intellectual challenges.</p>
+        <p data-pt-block>Participei de diversas olimpíadas acadêmicas incluindo Canguru (Matemática &mdash; Medalha de Prata!), OBB (Biologia) e ONHB (História). Essas experiências me ensinaram disciplina, pensamento crítico e a alegria dos desafios intelectuais.</p>
         <div class="tag-list">
-          <span>Mathematics</span><span>Biology</span><span>History</span><span>Problem Solving</span>
+          <span><span data-en>Mathematics</span><span data-pt>Matemática</span></span>
+          <span><span data-en>Biology</span><span data-pt>Biologia</span></span>
+          <span><span data-en>History</span><span data-pt>História</span></span>
+          <span><span data-en>Problem Solving</span><span data-pt>Resolução de Problemas</span></span>
         </div>
       </div>
     </div>
@@ -633,25 +743,33 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="section-inner">
-    <p class="section-label">03 &mdash; things I'm working on</p>
-    <h2 class="section-title">Projects</h2>
-    <p class="section-subtitle">work I'm proud of</p>
+    <p class="section-label"><span data-en>03 &mdash; things I'm working on</span><span data-pt>03 &mdash; no que estou trabalhando</span></p>
+    <h2 class="section-title"><span data-en>Projects</span><span data-pt>Projetos</span></h2>
+    <p class="section-subtitle"><span data-en>work I'm proud of</span><span data-pt>trabalhos que me orgulham</span></p>
 
     <div class="project-card">
-        <p class="project-type">Capstone Research</p>
-      <h3>More than Emotion: Art, Politics and the Cycle Between Them</h3>
-       <p>Art doesn't just reflect public opinion &mdash; it shapes it, whether it announces itself as political or not. This Capstone traces that argument from the 1922 Week of Modern Art in Brazil through three case studies: Tropicália under Brazil's military dictatorship, American comics as WWII propaganda, and the quiet influence of 2000s pop culture. Drawing on Tolstoy's theory of art as emotional transmission and Collingwood's idea that art makes conscious what society hasn't yet articulated, I argue that even "apolitical" art carries political weight.</p>
+        <p class="project-type"><span data-en>Capstone Research</span><span data-pt>Pesquisa de Conclusão</span></p>
+      <h3><span data-en>More than Emotion: Art, Politics and the Cycle Between Them</span><span data-pt>Mais que Emoção: Arte, Política e o Ciclo Entre Elas</span></h3>
+       <p data-en-block>Art doesn't just reflect public opinion &mdash; it shapes it, whether it announces itself as political or not. This Capstone traces that argument from the 1922 Week of Modern Art in Brazil through three case studies: Tropicália under Brazil's military dictatorship, American comics as WWII propaganda, and the quiet influence of 2000s pop culture. Drawing on Tolstoy's theory of art as emotional transmission and Collingwood's idea that art makes conscious what society hasn't yet articulated, I argue that even "apolitical" art carries political weight.</p>
+       <p data-pt-block>A arte não apenas reflete a opinião pública &mdash; ela a molda, seja se anunciando como política ou não. Este trabalho de conclusão traça esse argumento desde a Semana de Arte Moderna de 1922 no Brasil através de três estudos de caso: Tropicália sob a ditadura militar brasileira, quadrinhos americanos como propaganda na Segunda Guerra Mundial, e a influência silenciosa da cultura pop dos anos 2000. Baseando-se na teoria de Tolstói sobre arte como transmissão emocional e na ideia de Collingwood de que a arte torna consciente o que a sociedade ainda não articulou, argumento que até a arte "apolítica" carrega peso político.</p>
      <div class="tag-list">
-      <span>Capstone Project</span><span>Qualitative Research</span><span>Art Philosophy</span><span>Political Theory</span>
+      <span><span data-en>Capstone Project</span><span data-pt>Trabalho de Conclusão</span></span>
+      <span><span data-en>Qualitative Research</span><span data-pt>Pesquisa Qualitativa</span></span>
+      <span><span data-en>Art Philosophy</span><span data-pt>Filosofia da Arte</span></span>
+      <span><span data-en>Political Theory</span><span data-pt>Teoria Política</span></span>
       </div>
     </div>
 
       <div class="project-card">
-        <p class="project-type">Research Interest</p>
-        <h3>Books & Early Development</h3>
-        <p>Exploring how books and reading shape early childhood development. From building empathy and emotional vocabulary to supporting cognitive growth, literature plays a critical role in how young minds learn to understand themselves and the world. I'm interested in how access to books in early years impacts long-term psychological well-being and how storytelling can be used as a therapeutic tool.</p>
+        <p class="project-type"><span data-en>Research Interest</span><span data-pt>Interesse de Pesquisa</span></p>
+        <h3><span data-en>Books &amp; Early Development</span><span data-pt>Livros &amp; Desenvolvimento Infantil</span></h3>
+        <p data-en-block>Exploring how books and reading shape early childhood development. From building empathy and emotional vocabulary to supporting cognitive growth, literature plays a critical role in how young minds learn to understand themselves and the world. I'm interested in how access to books in early years impacts long-term psychological well-being and how storytelling can be used as a therapeutic tool.</p>
+        <p data-pt-block>Explorando como livros e leitura moldam o desenvolvimento infantil. Desde a construção de empatia e vocabulário emocional até o apoio ao crescimento cognitivo, a literatura desempenha um papel fundamental em como mentes jovens aprendem a entender a si mesmas e o mundo. Estou interessada em como o acesso a livros nos primeiros anos impacta o bem-estar psicológico a longo prazo e como a contação de histórias pode ser usada como ferramenta terapêutica.</p>
         <div class="tag-list lavender">
-          <span>Child Development</span><span>Literature</span><span>Early Education</span><span>Developmental Psychology</span>
+          <span><span data-en>Child Development</span><span data-pt>Desenvolvimento Infantil</span></span>
+          <span><span data-en>Literature</span><span data-pt>Literatura</span></span>
+          <span><span data-en>Early Education</span><span data-pt>Educação Infantil</span></span>
+          <span><span data-en>Developmental Psychology</span><span data-pt>Psicologia do Desenvolvimento</span></span>
         </div>
       </div>
     </div>
@@ -661,9 +779,9 @@
 <!-- ART -->
 <section id="art" style="background: linear-gradient(160deg, var(--sage-pale) 0%, var(--cream) 50%, var(--sage-pale) 80%, var(--lavender-pale) 100%);">
   <div class="section-inner">
-    <p class="section-label">04 &mdash; a peek into my world</p>
-    <h2 class="section-title">My Art</h2>
-    <p class="section-subtitle">creating is how I make sense of everything</p>
+    <p class="section-label"><span data-en>04 &mdash; a peek into my world</span><span data-pt>04 &mdash; uma espia da minha mundo</span></p>
+    <h2 class="section-title"><span data-en>My Art</span><span data-pt>Minha Arte</span></h2>
+    <p class="section-subtitle"><span data-en>creating is how I make sense of everything</span><span data-pt>criar é como faço sentido de tudo</span></p>
 
     <div class="art-gallery">
       <div class="art-piece">
@@ -676,7 +794,7 @@
         <img src="images/lily.jpg" alt="Watercolor lily painting - Dirius">
       </div>
     </div>
-    <p class="art-caption">Paintings by me &mdash; from lionesses to underwater worlds to watercolor flowers</p>
+    <p class="art-caption"><span data-en>Paintings by me &mdash; from lionesses to underwater worlds to watercolor flowers</span><span data-pt>Pinturas minhas &mdash; de leonas a mundos submersos até flores em aquarela</span></p>
   </div>
 </section>
 
@@ -685,33 +803,42 @@
 <!-- RESEARCH -->
 <section id="research">
   <div class="section-inner">
-    <p class="section-label">05 &mdash; brain food</p>
-    <h2 class="section-title">Research Interests</h2>
-    <p class="section-subtitle">where I want to go next</p>
+    <p class="section-label"><span data-en>05 &mdash; Topics that inspire me</span><span data-pt>05 &mdash; Tópicos que me inspiram</span></p>
+    <h2 class="section-title"><span data-en>Research Interests</span><span data-pt>Interesses de Pesquisa</span></h2>
+    <p class="section-subtitle"><span data-en>where I want to go next</span><span data-pt>meus planos futuros</span></p>
 
     <div class="research-grid">
       <div class="research-card">
-        <p class="card-label">Future research direction</p>
-        <h3>Early Environments &amp; Development</h3>
-        <p>How do our early surroundings shape who we become? I want to explore the impact of environment on developing minds &mdash; from access to books and art to the role of reinforcement contingencies &mdash; and contribute to making childhood experiences better for everyone.</p>
+        <p class="card-label"><span data-en>Future research direction</span><span data-pt>Direção de pesquisa futura</span></p>
+        <h3><span data-en>Early Environments &amp; Development</span><span data-pt>Ambientes Iniciais &amp; Desenvolvimento</span></h3>
+        <p data-en-block>How do our early surroundings shape who we become? I want to explore the impact of environment on developing minds &mdash; from access to books and art to the role of reinforcement contingencies &mdash; and contribute to making childhood experiences better for everyone.</p>
+        <p data-pt-block>Como nossos ambientes iniciais moldam quem nos tornamos? Eu quero explorar o impacto do ambiente em mentes em desenvolvimento &mdash; desde o acesso a livros e arte até o papel das contingências de reforçamento &mdash; e contribuir para melhorar experiências infantis para todos.</p>
         <div class="tag-list">
-          <span>Developmental Psychology</span><span>Environmental Impact</span><span>TCR</span>
+          <span><span data-en>Developmental Psychology</span><span data-pt>Psicologia do Desenvolvimento</span></span>
+          <span><span data-en>Environmental Impact</span><span data-pt>Impacto Ambiental</span></span>
+          <span><span data-en>TCR</span><span data-pt>TCR</span></span>
         </div>
       </div>
       <div class="research-card">
-        <p class="card-label">Future research direction</p>
-        <h3>Books as Therapeutic Tools</h3>
-        <p>I'm interested in how literature shapes early childhood development &mdash; building empathy, emotional vocabulary, and cognitive growth. Specifically, how storytelling can be used as a tool in therapeutic settings with children.</p>
+        <p class="card-label"><span data-en>Future research direction</span><span data-pt>Direção de pesquisa futura</span></p>
+        <h3><span data-en>Books as Therapeutic Tools</span><span data-pt>Livros como Ferramentas Terapêuticas</span></h3>
+        <p data-en-block>I'm interested in how literature shapes early childhood development &mdash; building empathy, emotional vocabulary, and cognitive growth. Specifically, how storytelling can be used as a tool in therapeutic settings with children.</p>
+        <p data-pt-block>Estou interessada em como a literatura molda o desenvolvimento infantil &mdash; construindo empatia, vocabulário emocional e crescimento cognitivo. Especificamente, como a contação de histórias pode ser usada como ferramenta em ambientes terapêuticos com crianças.</p>
         <div class="tag-list lavender">
-          <span>Literary Analysis</span><span>Child Development</span><span>Early Education</span>
+          <span><span data-en>Literary Analysis</span><span data-pt>Análise Literária</span></span>
+          <span><span data-en>Child Development</span><span data-pt>Desenvolvimento Infantil</span></span>
+          <span><span data-en>Early Education</span><span data-pt>Educação Infantil</span></span>
         </div>
       </div>
       <div class="research-card">
-        <p class="card-label">Personal exploration</p>
-        <h3>Art &amp; The Psyche</h3>
-        <p>An ongoing personal exploration of how visual art connects to our psychological experience. Journaling and researching the ways creative works reflect and shape our inner worlds.</p>
+        <p class="card-label"><span data-en>Personal exploration</span><span data-pt>Exploração pessoal</span></p>
+        <h3><span data-en>Art &amp; The Psyche</span><span data-pt>Arte &amp; A Psique</span></h3>
+        <p data-en-block>An ongoing personal exploration of how visual art connects to our psychological experience. Journaling and researching the ways creative works reflect and shape our inner worlds.</p>
+        <p data-pt-block>Uma exploração pessoal contínua de como a arte visual se conecta com nossa experiência psicológica. Mantendo diários e pesquisando as maneiras como obras criativas refletem e moldam nossos mundos interiores.</p>
         <div class="tag-list">
-          <span>Art Psychology</span><span>Reflective Writing</span><span>Creative Expression</span>
+          <span><span data-en>Art Psychology</span><span data-pt>Psicologia da Arte</span></span>
+          <span><span data-en>Reflective Writing</span><span data-pt>Escrita Reflexiva</span></span>
+          <span><span data-en>Creative Expression</span><span data-pt>Expressão Criativa</span></span>
         </div>
       </div>
     </div>
@@ -724,36 +851,42 @@
 <!-- GOALS -->
 <section id="goals">
   <div class="section-inner">
-    <p class="section-label">06 &mdash; dreaming big</p>
-    <h2 class="section-title">Where I'm Headed</h2>
-    <p class="section-subtitle">dreams, goals & the future I'm working toward</p>
+    <p class="section-label"><span data-en>06 &mdash; dreaming big</span><span data-pt>06 &mdash; sonhando grande</span></p>
+    <h2 class="section-title"><span data-en>Where I'm Headed</span><span data-pt>Para Onde Estou Indo</span></h2>
+    <p class="section-subtitle"><span data-en>dreams, goals & the future I'm working toward</span><span data-pt>sonhos, metas & o futuro para o qual estou trabalhando</span></p>
 
-    <p class="goals-intro">I'm just getting started on this journey, but I've got big dreams! Here's what keeps me motivated and excited for the future:</p>
+    <p class="goals-intro"><span data-en>I'm just getting started on this journey, but I've got big dreams! Here's what keeps me motivated and excited for the future:</span><span data-pt>Estou apenas começando nesta jornada, mas tenho grandes sonhos! Aqui está o que me mantém motivada e animada para o futuro:</span></p>
 
     <div class="goals-grid">
       <div class="goal-item">
-        <h3>Research Human Behavior</h3>
-        <p>I dream of conducting meaningful research on how our surroundings impact our lives and brains. Understanding the environmental factors that shape us is endlessly fascinating to me.</p>
+        <h3><span data-en>Research Human Behavior</span><span data-pt>Pesquisar Comportamento Humano</span></h3>
+        <p data-en-block>I dream of conducting meaningful research on how our surroundings impact our lives and brains. Understanding the environmental factors that shape us is endlessly fascinating to me.</p>
+        <p data-pt-block>Sonho em conduzir pesquisas significativas sobre como nossos arredores impactam nossas vidas e cérebros. Entender os fatores ambientais que nos moldam é infinitamente fascinante para mim.</p>
       </div>
       <div class="goal-item">
-        <h3>Expand TCR Knowledge</h3>
-        <p>I want to dive deeper into TCR (Terapia de Contingências por Reforçamento) and contribute to the field. There's so much potential in understanding how we can positively influence behavior.</p>
+        <h3><span data-en>Expand TCR Knowledge</span><span data-pt>Expandir Conhecimento em TCR</span></h3>
+        <p data-en-block>I want to dive deeper into TCR (Terapia de Contingências por Reforçamento) and contribute to the field. There's so much potential in understanding how we can positively influence behavior.</p>
+        <p data-pt-block>Quero mergulhar mais fundo em TCR (Terapia de Contingências por Reforçamento) e contribuir para o campo. Há tanto potencial em entender como podemos influenciar positivamente o comportamento.</p>
       </div>
       <div class="goal-item">
-        <h3>Pursue Graduate Studies</h3>
-        <p>A master's or PhD in psychology is definitely in my future plans. I want to combine research with practice and become the kind of psychologist who advances the field.</p>
+        <h3><span data-en>Pursue Graduate Studies</span><span data-pt>Prosseguir Estudos de Pós-Graduação</span></h3>
+        <p data-en-block>A master's or PhD in psychology is definitely in my future plans. I want to combine research with practice and become the kind of psychologist who advances the field.</p>
+        <p data-pt-block>Um mestrado ou doutorado em psicologia está definitivamente em meus planos futuros. Quero combinar pesquisa com prática e me tornar o tipo de psicóloga que avança o campo.</p>
       </div>
       <div class="goal-item">
-        <h3>Work with Children</h3>
-        <p>Kids have always held a special place in my heart. I'd love to specialize in child psychology and help young people navigate their developmental journeys.</p>
+        <h3><span data-en>Work with Children</span><span data-pt>Trabalhar com Crianças</span></h3>
+        <p data-en-block>Kids have always held a special place in my heart. I'd love to specialize in child psychology and help young people navigate their developmental journeys.</p>
+        <p data-pt-block>Crianças sempre tiveram um lugar especial no meu coração. Adoraria especializar-me em psicologia infantil e ajudar jovens a navegar suas jornadas de desenvolvimento.</p>
       </div>
       <div class="goal-item">
-        <h3>Learn More Languages</h3>
-        <p>Being bilingual in Portuguese and English is just the start! I want to learn more languages to connect with more people and access psychology research from around the world.</p>
+        <h3><span data-en>Learn More Languages</span><span data-pt>Aprender Mais Línguas</span></h3>
+        <p data-en-block>Being bilingual in Portuguese and English is just the start! I want to learn more languages to connect with more people and access psychology research from around the world.</p>
+        <p data-pt-block>Ser bilíngue em português e inglês é apenas o começo! Quero aprender mais línguas para conectar com mais pessoas e acessar pesquisa de psicologia de todo o mundo.</p>
       </div>
       <div class="goal-item">
-        <h3>Make Psychology Accessible</h3>
-        <p>Psychology shouldn't be locked away in academia. I want to help make mental health knowledge and resources accessible to everyone, regardless of background.</p>
+        <h3><span data-en>Make Psychology Accessible</span><span data-pt>Tornar a Psicologia Acessível</span></h3>
+        <p data-en-block>Psychology shouldn't be locked away in academia. I want to help make mental health knowledge and resources accessible to everyone, regardless of background.</p>
+        <p data-pt-block>Psicologia não deveria estar trancada na academia. Quero ajudar a tornar o conhecimento de saúde mental e recursos acessíveis para todos, independentemente da origem.</p>
       </div>
     </div>
   </div>
@@ -763,16 +896,17 @@
 <section id="connect" class="connect-section">
   <div class="section-inner">
     <div class="connect-inner">
-      <p class="section-label">07 &mdash; let's be friends!</p>
-      <h2 class="section-title">Let's Connect</h2>
-      <p class="section-subtitle">sempre feliz em conversar</p>
+      <p class="section-label"><span data-en>07 &mdash; let's be friends!</span><span data-pt>07 &mdash; vamos ser amigos!</span></p>
+      <h2 class="section-title"><span data-en>Let's Connect</span><span data-pt>Vamos Conversar</span></h2>
+      <p class="section-subtitle"><span data-en>always happy to chat</span><span data-pt>sempre feliz em conversar</span></p>
 
-      <p>Whether you're interested in collaborating on research, discussing behavior analysis, sharing book recommendations, or just want to connect &mdash; I'd love to hear from you! I speak both English and Portuguese.</p>
+      <p data-en-block>Whether you're interested in collaborating on research, discussing behavior analysis, sharing book recommendations, or just want to connect &mdash; I'd love to hear from you! I speak both English and Portuguese.</p>
+      <p data-pt-block>Quer você esteja interessada em colaborar na pesquisa, discutir análise do comportamento, compartilhar recomendações de livros, ou apenas quer se conectar &mdash; adoraria ouvir de você! Eu falo inglês e português.</p>
 
       <div class="connect-buttons">
-        <a href="mailto:celine.barros22@gmail.com" class="connect-btn sage">&#9993; Email Me</a>
+        <a href="mailto:celine.barros22@gmail.com" class="connect-btn sage">&#9993; <span data-en>Email Me</span><span data-pt>Me Envie um Email</span></a>
         <a href="https://instagram.com/celine.urfav" target="_blank" rel="noopener" class="connect-btn lavender">@ celine.urfav</a>
-        <a href="resume.html" target="_blank" class="connect-btn">&#8595; View Resume</a>
+        <a href="resume.html" target="_blank" class="connect-btn">&#8595; <span data-en>View Resume</span><span data-pt>Ver Currículo</span></a>
       </div>
     </div>
   </div>
@@ -780,8 +914,8 @@
 
 <!-- FOOTER -->
 <footer>
-  <p class="footer-tagline">Made with curiosity, creativity, and lots of books</p>
-  <p>&copy; 2026 Celine Oliveira Barros &mdash; Obrigada por visitar!</p>
+  <p class="footer-tagline"><span data-en>Made with curiosity, creativity, and lots of books</span><span data-pt>Feito com curiosidade, criatividade e muitos livros</span></p>
+  <p><span data-en>&copy; 2026 Celine Oliveira Barros &mdash; Thanks for visiting!</span><span data-pt>&copy; 2026 Celine Oliveira Barros &mdash; Obrigada por visitar!</span></p>
 </footer>
 
 <script>
@@ -811,6 +945,50 @@
   });
 </script>
 <script src="js/theme.js"></script>
+<script>
+  // ===== LANGUAGE TOGGLE =====
+  (function () {
+    var STORAGE_KEY = 'lang';
+
+    function getStored() {
+      try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+    }
+
+    function getEffectiveLang() {
+      var s = getStored();
+      if (s === 'en' || s === 'pt') return s;
+      return 'en';
+    }
+
+    function applyLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang;
+    }
+
+    function toggle() {
+      var current = document.documentElement.getAttribute('data-lang') || 'en';
+      var next = current === 'pt' ? 'en' : 'pt';
+      try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+      applyLang(next);
+    }
+
+    applyLang(getEffectiveLang());
+
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('.lang-toggle')) {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  })();
+
+  // ===== MOBILE NAV =====
+  document.querySelectorAll('.nav-links a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      document.getElementById('navbar').classList.remove('open');
+    });
+  });
+</script>
 <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
 </body>
 </html>

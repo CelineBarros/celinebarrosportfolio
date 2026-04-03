@@ -1,15 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
   (function(){try{var k='theme',s=localStorage.getItem(k);if(s==='light'||s==='dark'){document.documentElement.setAttribute('data-theme',s);}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();
+  (function(){try{var l=localStorage.getItem('lang');if(l==='pt'||l==='en'){document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l;}}catch(e){}})();
   </script>
   <title>Blog - Celine Oliveira Barros</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%234a7c59'>✿</text></svg>">
   <link rel="stylesheet" href="./css/theme.css" />
   <link rel="stylesheet" href="./css/blog.css" />
+  <style>
+    /* ===== LANGUAGE TOGGLE ===== */
+    [data-en] { display: inline; }
+    [data-pt] { display: none; }
+    html[data-lang="pt"] [data-en] { display: none; }
+    html[data-lang="pt"] [data-pt] { display: inline; }
+
+    [data-en-block] { display: block; }
+    [data-pt-block] { display: none; }
+    html[data-lang="pt"] [data-en-block] { display: none; }
+    html[data-lang="pt"] [data-pt-block] { display: block; }
+
+    [data-en-flex] { display: flex; }
+    [data-pt-flex] { display: none; }
+    html[data-lang="pt"] [data-en-flex] { display: none; }
+    html[data-lang="pt"] [data-pt-flex] { display: flex; }
+
+    .lang-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 400;
+      letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted);
+      background: none; border: none; cursor: pointer; padding: 0; margin: 0;
+      position: relative; transition: color 0.3s; flex-shrink: 0; line-height: 1;
+      vertical-align: middle; -webkit-appearance: none; appearance: none; gap: 0.35rem;
+    }
+    .lang-toggle::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--lavender); transition: width 0.3s;
+    }
+    .lang-toggle:hover { color: var(--lavender-deep); }
+    .lang-toggle:hover::after { width: 100%; }
+    .lang-toggle:focus-visible { outline: 2px solid var(--lavender); outline-offset: 3px; }
+    .lang-toggle .lang-icon { font-size: 0.95rem; line-height: 1; }
+    .lang-label-en, .lang-label-pt { pointer-events: none; }
+    .lang-label-pt { display: none; }
+    html[data-lang="pt"] .lang-label-en { display: none; }
+    html[data-lang="pt"] .lang-label-pt { display: inline; }
+  </style>
   <script src="./js/markdown-parser.js"></script>
   <script src="./js/blog-utils.js"></script>
 </head>
@@ -31,6 +70,18 @@
               </span>
             </button>
           </li>
+          <li class="nav-item--lang">
+            <button type="button" class="lang-toggle lang-toggle--desktop" aria-label="Switch language">
+              <span class="lang-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                  <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2.05 12h19.9M12 2.05v19.9M6.6 6.6l10.8 10.8M17.4 6.6L6.6 17.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="lang-label-en">PT-BR</span>
+              <span class="lang-label-pt">en</span>
+            </button>
+          </li>
           <li><a href="./index.html">Home</a></li>
           <li><a href="./blog.html">Blog</a></li>
           <li><a href="./resume.html">Resume</a></li>
@@ -42,9 +93,9 @@
   <main>
     <div class="blog-container">
       <header class="blog-page-header" aria-labelledby="blog-heading">
-        <p class="page-label">Writing</p>
-        <h1 id="blog-heading" class="blog-title">Blog</h1>
-        <p class="page-subtitle">Thoughts on psychology, life, art, and everything in between.</p>
+        <p class="page-label"><span data-en>Writing</span><span data-pt>Escrita</span></p>
+        <h1 id="blog-heading" class="blog-title"><span data-en>Blog</span><span data-pt>Blog</span></h1>
+        <p class="page-subtitle"><span data-en>Thoughts on psychology, life, art, and everything in between.</span><span data-pt>Pensamentos sobre psicologia, vida, arte e tudo mais.</span></p>
       </header>
 
       <div id="posts-listing" class="posts-listing">
@@ -54,6 +105,43 @@
   </main>
 
   <script src="./js/theme.js"></script>
+  <script>
+    // ===== LANGUAGE TOGGLE =====
+    (function () {
+      var STORAGE_KEY = 'lang';
+
+      function getStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function getEffectiveLang() {
+        var s = getStored();
+        if (s === 'en' || s === 'pt') return s;
+        return 'en';
+      }
+
+      function applyLang(lang) {
+        document.documentElement.setAttribute('data-lang', lang);
+        document.documentElement.lang = lang;
+      }
+
+      function toggle() {
+        var current = document.documentElement.getAttribute('data-lang') || 'en';
+        var next = current === 'pt' ? 'en' : 'pt';
+        try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+        applyLang(next);
+      }
+
+      applyLang(getEffectiveLang());
+
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('.lang-toggle')) {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    })();
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', renderBlogListing);
   </script>
