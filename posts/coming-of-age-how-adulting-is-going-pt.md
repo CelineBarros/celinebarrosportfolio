@@ -2,7 +2,7 @@
 title: Chegando à maturidade: como está indo o "adulting"
 description: Spoiler: meus pais estavam certos. Um guia nada glamouroso para crescer e aprender a abraçar o caos.
 date: 2026-04-03
-tags: Adolescente,Narrativa Pessoal,Relatável,Crescer
+tags: Adolescente,Narrativa Pessoal,Empático,Crescer
 author: Celine Oliveira Barros
 cover: /images/1775189801566-breackfast-club.jpg
 ---
@@ -37,8 +37,4 @@ Celine do Presente percebe que não existe mapa; não existe essa coisa de plano
 
 Se este post deixou algo óbvio, é que nada do que eu esperava se concretizou — de verdade, “no estilo Soy Luna” (precisamos romantizar a vida um pouco, né?) — e minha vida ficou melhor do que eu poderia planejar. Os amigos que eu não esperava. A carreira que eu não antecipei. O processo bagunçado do “adulting.”
 
-<<<<<<< HEAD
 Eu não sei o que o futuro reserva, e não tenho ideia do que a próxima Celine do Presente vai pensar das minhas decisões e filosofias. Mas aprendi a viver esse caos o melhor que posso. Talvez esse seja o verdadeiro “adulting” — não ter todas as respostas nem ideia do que fazer, mas ainda tentar, persistir e enxergar o lado bonito da surpresa. Em conclusão, um bom filme da Disney Channel é aquele com uma reviravolta forte.
-=======
-Eu não sei o que o futuro reserva, e não tenho ideia do que a próxima Celine Presente vai pensar das minhas decisões e filosofias. Mas aprendi a viver esse caos o melhor que posso. Talvez esse seja o verdadeiro “adulting” — não ter todas as respostas nem ideia do que fazer, mas ainda tentar, persistir e enxergar o lado bonito da surpresa. Ah, e um bom filme da Disney Channel é aquele com uma reviravolta forte.
->>>>>>> 2bdd5efe15c5434b788774a208edd2c34e189edd
