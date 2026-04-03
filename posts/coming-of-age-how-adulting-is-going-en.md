@@ -1,7 +1,7 @@
 ---
 title: Coming of Age: How "Adulting" is Going
 description: Spoiler alert: my parents were right. A not-so-glamorous guide to growing up and learning to embrace the chaos.
-date: 2026-04-02
+date: 2026-04-03
 tags: Teenager,Personal Narrative,Relatable,Growing Up
 cover: /images/1775189801566-breackfast-club.jpg
 ---

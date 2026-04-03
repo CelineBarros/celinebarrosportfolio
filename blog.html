@@ -125,14 +125,24 @@
         document.documentElement.lang = lang;
       }
 
+      function setSiteLang(lang) {
+        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+        applyLang(lang);
+        if (typeof renderBlogListing === 'function') {
+          renderBlogListing();
+        }
+      }
+
       function toggle() {
         var current = document.documentElement.getAttribute('data-lang') || 'en';
         var next = current === 'pt' ? 'en' : 'pt';
-        try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
-        applyLang(next);
+        setSiteLang(next);
       }
 
       applyLang(getEffectiveLang());
+      if (typeof renderBlogListing === 'function') {
+        renderBlogListing();
+      }
 
       document.addEventListener('click', function (e) {
         if (e.target.closest('.lang-toggle')) {

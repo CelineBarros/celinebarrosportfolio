@@ -24,6 +24,40 @@ function resolveSitePath(url) {
   return url;
 }
 
+function getLangFromSlug(slug) {
+  const match = typeof slug === 'string' && slug.match(/-(en|pt)$/i);
+  return match ? match[1].toLowerCase() : null;
+}
+
+function getBaseSlug(slug) {
+  if (!slug) return '';
+  const lang = getLangFromSlug(slug);
+  return lang ? slug.slice(0, -3) : slug;
+}
+
+function getPreferredLang() {
+  try {
+    const stored = localStorage.getItem('lang');
+    if (stored === 'pt' || stored === 'en') return stored;
+  } catch (e) {
+    // ignore storage errors
+  }
+  return 'en';
+}
+
+async function fetchPublishedSlugs() {
+  try {
+    const manifestUrl = new URL('posts/manifest.json', window.location.href);
+    const manifestRes = await fetch(manifestUrl);
+    if (!manifestRes.ok) throw new Error('Failed to load posts manifest');
+    const manifest = await manifestRes.json();
+    return manifest.posts || [];
+  } catch (error) {
+    console.error('Error fetching posts manifest:', error);
+    return [];
+  }
+}
+
 /**
  * Fetch all published posts (from posts/manifest.json + posts/*.md)
  */
@@ -118,13 +152,17 @@ function createPostCard(post) {
     .join('');
 
   const coverSrc = frontmatter.cover ? resolveSitePath(frontmatter.cover) : '';
+  const languageLabel = getLangFromSlug(slug);
+  const languageBadge = languageLabel
+    ? `<span class="post-card-language">${languageLabel.toUpperCase()}</span>`
+    : '';
 
   return `
     <article class="post-card">
       ${coverSrc ? `<img src="${coverSrc}" alt="${frontmatter.title} cover" class="post-card-cover" />` : ''}
       <div class="post-card-inner">
         <a href="./post.html?slug=${encodeURIComponent(slug)}" class="post-title-link">
-          <h2 class="post-card-title">${frontmatter.title}</h2>
+          <h2 class="post-card-title">${frontmatter.title} ${languageBadge}</h2>
         </a>
         <p class="post-date">${dateDisplay}</p>
         <p class="post-description">${frontmatter.description}</p>
@@ -143,11 +181,27 @@ async function renderBlogListing() {
 
   const posts = await fetchPublishedPosts();
   const sortedPosts = sortPostsByDate(posts);
+  const siteLang = document.documentElement.getAttribute('data-lang') || getPreferredLang();
+
+  const selectedPostsByBase = {};
+  sortedPosts.forEach((post) => {
+    const base = getBaseSlug(post.slug);
+    const language = getLangFromSlug(post.slug) || 'en';
+
+    if (!selectedPostsByBase[base]) {
+      selectedPostsByBase[base] = post;
+    }
+
+    // prefer explicit match with site lang
+    if (language === siteLang) {
+      selectedPostsByBase[base] = post;
+    }
+  });
+
+  let displayPosts = Object.values(selectedPostsByBase);
 
   // Check for tag filter in URL
   const tagParam = new URLSearchParams(window.location.search).get('tag');
-
-  let displayPosts = sortedPosts;
   if (tagParam) {
     displayPosts = filterPostsByTag(sortedPosts, tagParam);
     document.title = `Posts tagged "${tagParam}" - Celine Oliveira Barros`;
@@ -163,6 +217,37 @@ async function renderBlogListing() {
     .join('');
 }
 
+function renderPostLanguageSwitcher(baseSlug, currentSlug, availableLangs, currentLang) {
+  if (!availableLangs.en && !availableLangs.pt) return '';
+
+  const links = [];
+  if (availableLangs.en) {
+    const active = currentLang === 'en';
+    links.push(`
+      <a href="./post.html?slug=${encodeURIComponent(baseSlug + '-en')}" class="post-lang-btn${active ? ' active' : ''}" aria-current="${active ? 'true' : 'false'}">
+        <span data-en>English</span><span data-pt>Inglês</span>
+      </a>
+    `);
+  }
+  if (availableLangs.pt) {
+    const active = currentLang === 'pt';
+    links.push(`
+      <a href="./post.html?slug=${encodeURIComponent(baseSlug + '-pt')}" class="post-lang-btn${active ? ' active' : ''}" aria-current="${active ? 'true' : 'false'}">
+        <span data-en>Português</span><span data-pt>Português</span>
+      </a>
+    `);
+  }
+
+  if (!links.length) return '';
+
+  return `
+    <section class="post-lang-switcher" aria-label="Choose post language">
+      <p class="post-lang-switcher-label"><span data-en>Read this post in:</span><span data-pt>Ler este post em:</span></p>
+      <div class="post-lang-buttons">${links.join('')}</div>
+    </section>
+  `;
+}
+
 /**
  * Render individual blog post page
  */
@@ -173,12 +258,51 @@ async function renderBlogPost() {
   const params = new URLSearchParams(window.location.search);
   let slug = params.get('slug');
   if (!slug) {
-    const last =
-      window.location.pathname.split('/').filter(Boolean).pop() || '';
+    const last = window.location.pathname.split('/').filter(Boolean).pop() || '';
     slug = last.replace(/\.html$/i, '');
   }
-  const post = await fetchPostBySlug(slug);
 
+  const baseSlug = getBaseSlug(slug);
+  const explicitLang = getLangFromSlug(slug);
+  const preferredLang = explicitLang || getPreferredLang();
+
+  const allSlugs = await fetchPublishedSlugs();
+  const hasEnglish = allSlugs.includes(`${baseSlug}-en`);
+  const hasPortuguese = allSlugs.includes(`${baseSlug}-pt`);
+  const hasBase = allSlugs.includes(baseSlug);
+
+  let selectedSlug = slug;
+  if (!explicitLang) {
+    if (preferredLang === 'pt' && hasPortuguese) {
+      selectedSlug = `${baseSlug}-pt`;
+    } else if (preferredLang === 'en' && hasEnglish) {
+      selectedSlug = `${baseSlug}-en`;
+    } else if (hasEnglish) {
+      selectedSlug = `${baseSlug}-en`;
+    } else if (hasPortuguese) {
+      selectedSlug = `${baseSlug}-pt`;
+    } else if (hasBase) {
+      selectedSlug = baseSlug;
+    }
+  }
+
+  if (!allSlugs.includes(selectedSlug)) {
+    if (hasEnglish) {
+      selectedSlug = `${baseSlug}-en`;
+    } else if (hasPortuguese) {
+      selectedSlug = `${baseSlug}-pt`;
+    } else {
+      selectedSlug = baseSlug;
+    }
+  }
+
+  if (selectedSlug !== slug) {
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set('slug', selectedSlug);
+    window.history.replaceState(null, '', newUrl);
+  }
+
+  const post = await fetchPostBySlug(selectedSlug);
   if (!post) {
     postContainer.innerHTML = '<p>Post not found.</p>';
     return;
@@ -194,6 +318,9 @@ async function renderBlogPost() {
     .map(tag => `<a href="./blog.html?tag=${encodeURIComponent(tag)}" class="tag">${tag}</a>`)
     .join('');
 
+  const currentLang = getLangFromSlug(selectedSlug) || (preferredLang === 'pt' ? 'pt' : 'en');
+  const langSwitcherHtml = renderPostLanguageSwitcher(baseSlug, selectedSlug, { en: hasEnglish, pt: hasPortuguese }, currentLang);
+
   const htmlContent = markdownToHtml(content);
   const coverSrc = frontmatter.cover ? resolveSitePath(frontmatter.cover) : '';
 
@@ -205,6 +332,7 @@ async function renderBlogPost() {
         <time class="post-date">${dateDisplay}</time>
         ${tagsHtml ? `<div class="post-tags">${tagsHtml}</div>` : ''}
       </header>
+      ${langSwitcherHtml}
       <div class="post-body">
         ${htmlContent}
       </div>
