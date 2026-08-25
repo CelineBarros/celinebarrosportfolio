@@ -373,7 +373,7 @@ h1.blog-title {
 
 .post-card:hover {
   border-color: var(--sage-light);
-  box-shadow: 0 12px 36px rgba(122, 158, 126, 0.12);
+  box-shadow: 0 12px 36px rgba(65, 82, 31, 0.12);
   transform: translateY(-3px);
 }
 

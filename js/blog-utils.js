@@ -120,15 +120,17 @@ function renderAuthorSection() {
   const profileSrc = resolveSitePath('/images/profile.jpg');
   return `
     <section class="author-card" aria-label="About the author">
-      <img src="${profileSrc}" alt="Celine Oliveira Barros" class="author-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+      <img src="${profileSrc}" alt="Celine Barros" class="author-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
       <div class="author-avatar-fallback" style="display:none;">CB</div>
       <div class="author-content">
         <p class="author-eyebrow"><span data-en>Written by</span><span data-pt>Escrito por</span></p>
-        <h3 class="author-name">Celine Oliveira Barros</h3>
-        <p class="author-bio"><span data-en>Student, creator, and storyteller sharing reflections on psychology, design, and intentional living.</span><span data-pt>Estudante, criadora e contadora de histórias, compartilhando reflexões sobre psicologia, design e vida com intenção.</span></p>
+        <h3 class="author-name">Celine Barros</h3>
+        <p class="author-bio"><span data-en>Psychology student building a life in Canada and writing about all of it &mdash; real, unfiltered, and always moving forward.</span><span data-pt>Estudante de psicologia construindo uma vida no Canadá e escrevendo sobre tudo isso &mdash; real, sem filtro, sempre em movimento.</span></p>
         <div class="author-socials">
           <a href="mailto:celine.barros22@gmail.com" class="author-social-link"><span data-en>Email</span><span data-pt>E-mail</span></a>
-          <a href="https://instagram.com/celine.urfav" target="_blank" rel="noopener" class="author-social-link">Instagram</a>
+          <a href="https://instagram.com/celinebarros.acad" target="_blank" rel="noopener" class="author-social-link">Instagram</a>
+          <a href="https://tiktok.com/@celinebarros.acad" target="_blank" rel="noopener" class="author-social-link">TikTok</a>
+          <a href="https://youtube.com/@celinebarros.acad" target="_blank" rel="noopener" class="author-social-link">YouTube</a>
           <a href="./resume.html" class="author-social-link"><span data-en>Resume</span><span data-pt>Currículo</span></a>
         </div>
         <p class="author-signature">Celine</p>
@@ -204,7 +206,7 @@ async function renderBlogListing() {
   const tagParam = new URLSearchParams(window.location.search).get('tag');
   if (tagParam) {
     displayPosts = filterPostsByTag(sortedPosts, tagParam);
-    document.title = `Posts tagged "${tagParam}" - Celine Oliveira Barros`;
+    document.title = `Posts tagged "${tagParam}" - Celine Barros`;
   }
 
   if (displayPosts.length === 0) {
@@ -308,5 +310,5 @@ async function renderBlogPost() {
     </article>
   `;
 
-  document.title = `${frontmatter.title} - Celine Oliveira Barros`;
+  document.title = `${frontmatter.title} - Celine Barros`;
 }

@@ -1,60 +1,63 @@
 /**
  * Light / dark theme tokens. Toggle via html[data-theme="dark"].
  * Default (no attribute) matches :root light palette; script sets data-theme on load.
+ * Brand palette: #41521F (olive) · #F1F2EB (cream) · #FFBC42 (amber) — celinebarros.acad brand book, 2026.
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root {
   color-scheme: light;
-  --sage: #7a9e7e;
-  --sage-deep: #5c8260;
-  --sage-light: #c0d8c3;
-  --sage-pale: #e8f0e9;
-  --lavender: #9b8ec4;
-  --lavender-deep: #7b6fa8;
-  --lavender-light: #c7bfe0;
-  --lavender-pale: #ede9f6;
-  --cream: #fafaf7;
+  --sage: #41521f;
+  --sage-deep: #2e3a15;
+  --sage-light: #8a9b5e;
+  --sage-pale: #e9ecdd;
+  --lavender: #ffbc42;
+  --lavender-deep: #e0a020;
+  --lavender-light: #ffd98a;
+  --lavender-pale: #fdf1da;
+  --cream: #f1f2eb;
   --warm-white: #ffffff;
-  --ink: #2c2c2c;
-  --ink-light: #555555;
-  --ink-muted: #888888;
-  --blush: #f2e4e1;
-  --peach: #f5d5c8;
-  --border: #e2ded6;
-  --shadow: rgba(122, 158, 126, 0.1);
-  --shadow-lav: rgba(155, 142, 196, 0.1);
-  --nav-bg: rgba(250, 250, 247, 0.92);
-  --nav-dropdown-bg: rgba(250, 250, 247, 0.97);
-  --resume-body-bg: #e8e4de;
+  --ink: #2b2e1f;
+  --ink-light: #565a45;
+  --ink-muted: #8a8d78;
+  --blush: #fdeecb;
+  --peach: #ffdfae;
+  --border: #dcddd0;
+  --shadow: rgba(65, 82, 31, 0.12);
+  --shadow-lav: rgba(255, 188, 66, 0.18);
+  --nav-bg: rgba(241, 242, 235, 0.92);
+  --nav-dropdown-bg: rgba(241, 242, 235, 0.97);
+  --resume-body-bg: #e6e6d9;
   --resume-toolbar-shadow: rgba(0, 0, 0, 0.08);
   --resume-page-shadow: rgba(0, 0, 0, 0.1);
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html[data-theme='dark'] {
   color-scheme: dark;
-  --sage: #8fb896;
-  --sage-deep: #b8d4be;
-  --sage-light: #3d5248;
-  --sage-pale: #1a221e;
-  --lavender: #a898c9;
-  --lavender-deep: #c9bfe8;
-  --lavender-light: #4a4558;
-  --lavender-pale: #1e1c28;
-  --cream: #12141a;
-  --warm-white: #1a1f26;
-  --ink: #e8e8e3;
-  --ink-light: #b8b8b0;
-  --ink-muted: #94948c;
-  --blush: #2a2224;
-  --peach: #2a2420;
-  --border: #2d333d;
+  --sage: #9db36b;
+  --sage-deep: #c3d38f;
+  --sage-light: #3a4326;
+  --sage-pale: #1b2013;
+  --lavender: #ffcf6e;
+  --lavender-deep: #ffdb94;
+  --lavender-light: #4a3a17;
+  --lavender-pale: #241c0d;
+  --cream: #14170f;
+  --warm-white: #1b1f14;
+  --ink: #f1f2eb;
+  --ink-light: #cfd2c2;
+  --ink-muted: #9a9d8c;
+  --blush: #2a2416;
+  --peach: #2e2414;
+  --border: #333a26;
   --shadow: rgba(0, 0, 0, 0.35);
   --shadow-lav: rgba(0, 0, 0, 0.28);
-  --nav-bg: rgba(18, 20, 26, 0.92);
-  --nav-dropdown-bg: rgba(22, 25, 32, 0.98);
-  --resume-body-bg: #0f1218;
+  --nav-bg: rgba(20, 23, 15, 0.92);
+  --nav-dropdown-bg: rgba(24, 27, 18, 0.98);
+  --resume-body-bg: #0f120a;
   --resume-toolbar-shadow: rgba(0, 0, 0, 0.35);
   --resume-page-shadow: rgba(0, 0, 0, 0.45);
 }
@@ -63,7 +66,7 @@ html[data-theme='dark'] {
 html[data-theme='dark'] .hero::before {
   background: radial-gradient(
     circle,
-    rgba(122, 158, 126, 0.07) 0%,
+    rgba(157, 179, 107, 0.09) 0%,
     transparent 70%
   );
 }
@@ -71,7 +74,7 @@ html[data-theme='dark'] .hero::before {
 html[data-theme='dark'] .hero::after {
   background: radial-gradient(
     circle,
-    rgba(122, 158, 126, 0.05) 0%,
+    rgba(255, 188, 66, 0.06) 0%,
     transparent 70%
   );
 }
