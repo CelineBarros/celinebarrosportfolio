@@ -130,7 +130,7 @@ function renderAuthorSection() {
           <a href="mailto:celine.barros22@gmail.com" class="author-social-link"><span data-en>Email</span><span data-pt>E-mail</span></a>
           <a href="https://instagram.com/celinebarros.acad" target="_blank" rel="noopener" class="author-social-link">Instagram</a>
           <a href="https://tiktok.com/@celinebarros.acad" target="_blank" rel="noopener" class="author-social-link">TikTok</a>
-          <a href="https://youtube.com/@celinebarros.acad" target="_blank" rel="noopener" class="author-social-link">YouTube</a>
+          <a href="https://www.youtube.com/@celinebarros.acad22" target="_blank" rel="noopener" class="author-social-link">YouTube</a>
           <a href="./resume.html" class="author-social-link"><span data-en>Resume</span><span data-pt>Currículo</span></a>
         </div>
         <p class="author-signature">Celine</p>
