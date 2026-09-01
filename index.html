@@ -136,6 +136,16 @@
     0%, 100% { transform: translate(0, 0) scale(1); }
     50% { transform: translate(-18px, 22px) scale(1.06); }
   }
+  /* Subtle organic grain — nature-distilled texture, no external asset */
+  .grain::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  html[data-theme='dark'] .grain::after { opacity: 0.08; mix-blend-mode: overlay; }
   @media (prefers-reduced-motion: reduce) {
     .hero::before, .hero::after { animation: none; }
   }
@@ -298,17 +308,35 @@
 
   /* === ABOUT === */
   .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2.5rem; align-items: start;
+    display: grid; grid-template-columns: 1.2fr 0.8fr;
+    gap: 3rem; align-items: start;
   }
   .about-text p {
     color: var(--ink-light); margin-bottom: 1.2rem; font-size: 0.95rem;
   }
+  .about-text .lead::first-letter {
+    font-family: var(--font-display);
+    font-size: 3.6rem; font-weight: 500; font-style: italic;
+    color: var(--sage-deep);
+    float: left; line-height: 0.8;
+    padding: 0.1rem 0.4rem 0 0;
+  }
+  .about-pull-quote {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 1.3rem; line-height: 1.5; color: var(--lavender-deep);
+    border-left: 3px solid var(--lavender-light);
+    padding: 0.2rem 0 0.2rem 1.3rem;
+    margin: 1.8rem 0; max-width: 90%;
+  }
   .about-sidebar {
     background: linear-gradient(135deg, var(--sage-pale) 0%, var(--sage-pale) 70%, var(--lavender-pale) 100%);
     border: 1px solid var(--sage-light);
-    border-radius: 16px; padding: 2rem;
+    border-radius: 28px 12px 28px 12px; padding: 2rem;
+    margin-top: 1.5rem;
   }
+  /* Higher specificity than .reveal.is-visible so the static tilt survives the scroll-reveal class */
+  #about .about-sidebar { transform: rotate(0.6deg); }
+  #about .about-sidebar.is-visible { transform: rotate(0.6deg) translateY(0); }
   .about-sidebar h3 {
     font-family: var(--font-display);
     font-size: 1.1rem; font-weight: 400; margin-bottom: 1.2rem;
@@ -523,8 +551,9 @@
   .connect-section {
     background: linear-gradient(160deg, var(--sage-pale) 0%, var(--cream) 50%, var(--sage-pale) 80%, var(--lavender-pale) 100%);
     border-top: 1px solid var(--border);
+    position: relative; overflow: hidden;
   }
-  .connect-inner { text-align: center; max-width: 600px; margin: 0 auto; }
+  .connect-inner { text-align: center; max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
   .connect-inner > p {
     font-size: 0.93rem; color: var(--ink-light);
     margin-bottom: 2rem; line-height: 1.8;
@@ -551,6 +580,42 @@
     background: var(--lavender); color: var(--sage-deep); border-color: var(--lavender);
   }
   .connect-btn.lavender:hover { background: var(--lavender-deep); }
+
+  /* === SOCIALS DROPDOWN === */
+  .connect-dropdown { position: relative; }
+  .connect-dropdown-trigger {
+    cursor: pointer; font: inherit;
+  }
+  .connect-dropdown-trigger .caret {
+    display: inline-block; font-size: 0.65rem;
+    transition: transform 0.25s ease;
+  }
+  .connect-dropdown.open .connect-dropdown-trigger .caret { transform: rotate(180deg); }
+  .connect-dropdown-menu {
+    position: absolute; top: calc(100% + 0.6rem); left: 50%;
+    transform: translate(-50%, -8px);
+    min-width: 170px; background: var(--warm-white);
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 0.5rem; box-shadow: 0 12px 32px var(--shadow);
+    display: flex; flex-direction: column; gap: 0.2rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 20;
+  }
+  .connect-dropdown.open .connect-dropdown-menu {
+    opacity: 1; pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+  .connect-dropdown-menu a {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.55rem 0.9rem; border-radius: 10px;
+    font-size: 0.85rem; text-decoration: none;
+    color: var(--ink-light);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .connect-dropdown-menu a:hover {
+    background: var(--lavender-pale); color: var(--lavender-deep);
+  }
 
   /* === FOOTER === */
   footer {
@@ -744,7 +809,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="hero">
+<section class="hero grain" id="hero">
   <div class="hero-inner">
     <div class="hero-photo-wrap">
       <div class="hero-photo">
@@ -783,10 +848,11 @@
 
     <div class="about-grid">
       <div class="about-text">
-        <p data-en-block>Hi, I'm Celine &mdash; I'm 19, Brazilian, and I moved to Nanaimo, BC to study Psychology at Vancouver Island University. I'm building this life one deliberate step at a time, and I document the whole thing here and on Instagram/TikTok as I go. Back home, I was Communications Chair at Frances Kelsey Secondary during my grad year &mdash; turns out I've always liked telling people what's going on.</p>
-        <p data-pt-block>Oi, eu sou a Celine &mdash; tenho 19 anos, sou brasileira e me mudei pra Nanaimo, no Canadá, pra estudar Psicologia na Vancouver Island University. Tô construindo essa vida um passo de cada vez, com intenção, e documento tudo isso aqui e no Instagram/TikTok conforme vou vivendo. Antes de vir, fui Coordenadora de Comunicação na Frances Kelsey Secondary no meu último ano &mdash; parece que sempre gostei de contar pras pessoas o que tá rolando.</p>
+        <p class="lead" data-en-block>Hi, I'm Celine &mdash; I'm 19, Brazilian, and I moved to Nanaimo, BC to study Psychology at Vancouver Island University. I'm building this life one deliberate step at a time, and I document the whole thing here and on Instagram/TikTok as I go. Back home, I was Communications Chair at Frances Kelsey Secondary during my grad year &mdash; turns out I've always liked telling people what's going on.</p>
+        <p class="lead" data-pt-block>Oi, eu sou a Celine &mdash; tenho 19 anos, sou brasileira e me mudei pra Nanaimo, no Canadá, pra estudar Psicologia na Vancouver Island University. Tô construindo essa vida um passo de cada vez, com intenção, e documento tudo isso aqui e no Instagram/TikTok conforme vou vivendo. Antes de vir, fui Coordenadora de Comunicação na Frances Kelsey Secondary no meu último ano &mdash; parece que sempre gostei de contar pras pessoas o que tá rolando.</p>
         <p data-en-block>My thing with psychology isn't recent &mdash; I've been in therapy since I was 11, and watching how much understanding my own mind changed my life is basically why I'm doing this degree. I'm especially into behavioral analysis: how the environment around us quietly shapes who we turn into.</p>
         <p data-pt-block>Minha relação com psicologia não é de agora &mdash; faço terapia desde os 11 anos, e ver o quanto entender minha própria cabeça mudou minha vida é basicamente o motivo de eu estar nessa graduação. Sou especialmente fã de análise do comportamento: como o ambiente ao nosso redor molda, sem avisar, quem a gente vira.</p>
+        <p class="about-pull-quote"><span data-en>&ldquo;Understanding my own mind is the thing that changed my life.&rdquo;</span><span data-pt>&ldquo;Entender minha própria cabeça foi o que mudou minha vida.&rdquo;</span></p>
         <p data-en-block>When I'm not buried in readings, I'm painting, journaling, or overthinking how creativity and the human mind talk to each other. Also &mdash; huge soft spot for dogs and little kids, no notes.</p>
         <p data-pt-block>Quando não tô enterrada em leitura, tô pintando, escrevendo ou pensando demais sobre como criatividade e mente humana conversam entre si. Também tenho um fraco gigante por cachorros e crianças pequenas, sem exceções.</p>
       </div>
@@ -1055,7 +1121,7 @@
 </section>
 
 <!-- CONNECT -->
-<section id="connect" class="connect-section">
+<section id="connect" class="connect-section grain">
   <div class="section-inner">
     <div class="connect-inner">
       <p class="section-label"><span data-en>07 &mdash; let's be friends!</span><span data-pt>07 &mdash; vamos ser amigos!</span></p>
@@ -1077,9 +1143,16 @@
 
       <div class="connect-buttons">
         <a href="mailto:celine.barros22@gmail.com" class="connect-btn sage">&#9993; <span data-en>Email Me</span><span data-pt>Me Envie um Email</span></a>
-        <a href="https://instagram.com/celinebarros.acad" target="_blank" rel="noopener" class="connect-btn lavender">Instagram</a>
-        <a href="https://tiktok.com/@celinebarros.acad" target="_blank" rel="noopener" class="connect-btn lavender">TikTok</a>
-        <a href="https://www.youtube.com/@celinebarros.acad22" target="_blank" rel="noopener" class="connect-btn lavender">YouTube</a>
+        <div class="connect-dropdown">
+          <button type="button" class="connect-btn lavender connect-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-en>My Socials</span><span data-pt>Minhas Redes</span> <span class="caret" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="connect-dropdown-menu" role="menu">
+            <a href="https://instagram.com/celinebarros.acad" target="_blank" rel="noopener" role="menuitem">Instagram</a>
+            <a href="https://tiktok.com/@celinebarros.acad" target="_blank" rel="noopener" role="menuitem">TikTok</a>
+            <a href="https://www.youtube.com/@celinebarros.acad22" target="_blank" rel="noopener" role="menuitem">YouTube</a>
+          </div>
+        </div>
         <a href="resume.html" target="_blank" class="connect-btn">&#8595; <span data-en>View Resume</span><span data-pt>Ver Currículo</span></a>
       </div>
     </div>
@@ -1098,6 +1171,32 @@
     link.addEventListener('click', () => {
       document.getElementById('navbar').classList.remove('open');
     });
+  });
+
+  // Socials dropdown (Minhas Redes)
+  document.querySelectorAll('.connect-dropdown').forEach(dropdown => {
+    const trigger = dropdown.querySelector('.connect-dropdown-trigger');
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.connect-dropdown.open').forEach(dropdown => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+        dropdown.querySelector('.connect-dropdown-trigger').setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.connect-dropdown.open').forEach(dropdown => {
+        dropdown.classList.remove('open');
+        dropdown.querySelector('.connect-dropdown-trigger').setAttribute('aria-expanded', 'false');
+      });
+    }
   });
 
   // Fade-in on scroll (class-based so hover transforms defined in CSS still apply after reveal)
