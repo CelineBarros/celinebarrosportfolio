@@ -598,13 +598,14 @@
     border: 1px solid var(--border); border-radius: 16px;
     padding: 0.5rem; box-shadow: 0 12px 32px var(--shadow);
     display: flex; flex-direction: column; gap: 0.2rem;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
     z-index: 20;
   }
   .connect-dropdown.open .connect-dropdown-menu {
-    opacity: 1; pointer-events: auto;
+    opacity: 1; visibility: visible; pointer-events: auto;
     transform: translate(-50%, 0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
   .connect-dropdown-menu a {
     display: flex; align-items: center; gap: 0.6rem;
@@ -625,6 +626,9 @@
   footer .footer-tagline {
     font-style: italic; margin-bottom: 0.5rem;
     font-size: 0.85rem; color: var(--sage);
+  }
+  footer .footer-privacy {
+    font-size: 0.7rem; margin-top: 0.8rem; opacity: 0.8;
   }
 
   /* === FUN DECORATIVE BITS === */
@@ -1163,6 +1167,7 @@
 <footer>
   <p class="footer-tagline"><span data-en>Made with curiosity, courage, and a lot of real life</span><span data-pt>Feito com curiosidade, coragem e muita vida real</span></p>
   <p><span data-en>&copy; 2026 Celine Oliveira Barros &mdash; Thanks for visiting!</span><span data-pt>&copy; 2026 Celine Oliveira Barros &mdash; Obrigada por visitar!</span></p>
+  <p class="footer-privacy"><span data-en>This site uses cookie-free Vercel Analytics for anonymous visit counts and loads fonts from Google Fonts.</span><span data-pt>Este site usa o Vercel Analytics (sem cookies) para contagem an&ocirc;nima de visitas e carrega fontes do Google Fonts.</span></p>
 </footer>
 
 <script>
